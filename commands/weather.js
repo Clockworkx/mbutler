@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'weather',
-	aliases: [],
+	aliases: ['wetter'],
 	description: 'get weather info for your city:',
 	uses_arguments: true,
 	usage: '<city or zipcode>',
