@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports = {
-	name: 'initiate_roles',
+	name: 'initiate_roless',
 	aliases: [],
 	description: 'admin command to print out configured roles for the role reaction system',
 	uses_arguments: false,

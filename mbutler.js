@@ -30,9 +30,6 @@ client.once('ready', () => {
 client.on('message', message => {
   if (!message.content.startsWith(prefix) || message.author.bot)
   {
-    if (message.content === 'test'){
-      console.log("test triggered");
-    }  
     if(message.embeds)
     {
       const rollen_embed_message = message.embeds.find(msg => msg.title === 'S');
