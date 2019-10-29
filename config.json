@@ -1,0 +1,9 @@
+{
+    "token": "NjI5MDMwMzU2MzAwOTg4NDE5.XbaWEQ.E-qgiWForoiQIfJ6KO7D_tiRGeU",
+    "prefix": ".",
+    "admin": "193676015623602176",
+    "secret_passcodes": {
+        "bank": 1234,
+        "home": 12345
+    }
+}
