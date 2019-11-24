@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ascii-art": "^2.0.2",
+    "custom-translate": "^2.2.8",
     "discord.js": "^11.5.1",
     "mathjs": "^6.2.3",
     "relevant-urban": "^2.0.0",

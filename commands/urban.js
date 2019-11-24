@@ -11,12 +11,16 @@ module.exports = {
 	cooldown: 1,
 	async execute (message, arguments) {
         let res;
+        let top_index = arguments.indexOf('--top');
+        let word = arguments.splice(top_index, 1);
+        let test = arguments.find(top => top.startsWith('--top'))
+        console.log('test', test)
         if (arguments[0] === 'random'){
             res = await urban.random().catch(e => {
                 return message.channel.send('***word not found***');
             });
         }
-        else if (arguments[1] === '--top'){
+        else if (word.find(top => top.name === '--top') === '--top' ){
             res = await urban.random(arguments.join(' ')).catch(e => {
                 return message.channel.send('***word not found***');
             });
