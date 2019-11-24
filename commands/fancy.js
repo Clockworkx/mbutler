@@ -14,7 +14,7 @@ module.exports = {
 	execute(message, arguments) {
 		if (message.content.length > 2000) return message.channel.send('Maximum text size exceeded (2000)');
 
-		fancied_message = translator.letterTrans(message.content, fancyDictionary);
+		fancied_message = translator.letterTrans(arguments.join(' '), fancyDictionary);
 		message.channel.send(fancied_message);
 
 	},
