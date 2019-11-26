@@ -4,14 +4,14 @@ const ascii = require('ascii-art');
 module.exports = class MeowwCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'test',
+			name: 'ascii',
 			group: 'text-edit',
 			memberName: 'ascify',
             description: 'turns text into ascii',
             args: [
                 {
                     key: 'text',
-                    prompt: 'enter text to turn into ascii',
+                    prompt: 'enter the text for ascii conversion',
                     type: 'string',
                     infinite: true,
                 },
