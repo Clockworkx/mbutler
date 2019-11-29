@@ -19,7 +19,6 @@ module.exports = class EightBallCommand extends Command {
 	}
 
 	run(message, { question }) {
-        return message.say(`${question} 
-        🎱 ${answers[Math.floor(Math.random() * answers.length)]} 🎱`);
+        return message.say(`${question} 🎱 ${answers[Math.floor(Math.random() * answers.length)]} 🎱`);
 	}
 };
