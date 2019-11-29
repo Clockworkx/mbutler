@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const ascii = require('ascii-art');
 
-module.exports = class MeowwCommand extends Command {
+module.exports = class AsciiCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'ascii',
