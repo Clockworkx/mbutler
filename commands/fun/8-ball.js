@@ -4,7 +4,7 @@ const answers = require('../../assets/json/8-ball')
 module.exports = class EightBallCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: '8-ball',
+			name: '8ball',
 			group: 'fun',
 			memberName: '8-ball',
             description: 'consult 8-ball',
@@ -19,6 +19,6 @@ module.exports = class EightBallCommand extends Command {
 	}
 
 	run(message, { question }) {
-        return message.say(`${question}\n 🎱 ${answers[Math.floor(Math.random() * answers.length)]} 🎱`);
+        return message.say(`${question}\n🎱 ${answers[Math.floor(Math.random() * answers.length)]} 🎱`);
 	}
 };
