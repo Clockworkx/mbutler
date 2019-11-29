@@ -14,14 +14,13 @@ module.exports = class WeatherCommand extends Command {
                     key: 'location',
                     prompt: 'Enter the location, e.g. "San Francisco, CA',
                     type: 'string',
-                    infinite: true,
                 },
             ],
 		});
 	}
 
 	run(message, { location }) {
-		weather.find({search: location.join(" "), degreeType: 'C'}, function(err, result){
+		weather.find({search: location, degreeType: 'C'}, function(err, result){
             if (err) message.channel.send(err)
 
             if (result === undefined || result.length === 0 ){
