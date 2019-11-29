@@ -5,7 +5,7 @@ module.exports = class ReminderCommand extends Command {
 		super(client, {
 			name: 'reminder',
 			group: 'utility',
-			memberName: 'Reminder',
+			memberName: 'reminder',
             description: 'reminds you',
             args: [
                 {

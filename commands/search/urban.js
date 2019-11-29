@@ -17,7 +17,7 @@ module.exports = class UrbanCommand extends Command {
                     prompt: 'Type in the word to look up, if no word is provided you get a random word',
                     type: 'string',
                     infinite: true,
-                    default: 'random',
+                    default: ['random'],
                 },
             ],
 		});
@@ -52,6 +52,8 @@ module.exports = class UrbanCommand extends Command {
 		.setFooter(`👍 ${res.thumbsUp} 👎 ${res.thumbsDown} Author: ${res.author}`)
         .addField(`**» Example «**`, `*${res.example}*\n`) //? shorten(res.example.replace(/\[|\]/g, ''), 1000) : 'None'
         .addBlankField()
-        message.channel.send(urban_embed);;
+
+        if (urban_embed.length > 1024) message.say('Entry is too long to display in discord');
+        else message.channel.send(urban_embed);
 	}
 };

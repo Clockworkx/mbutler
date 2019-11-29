@@ -48,11 +48,9 @@ client.once('ready', () => {
 client
   .on('error', console.error)
   .on('messageReactionAdd', async (reaction, user) => {
-    // other code here
     roleService.add_group(reaction, user)
   })
   .on('messageReactionRemove', async (reaction, user) => {
-    // other code here
     roleService.remove_group(reaction, user)
   })
 
