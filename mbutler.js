@@ -47,6 +47,9 @@ client.once('ready', () => {
 
 client
   .on('error', console.error)
+  .on('commandError', (cmd, err) => {
+    console.error(`Error in command ${cmd.groupID}:${cmd.memberName}`, err)
+  })
   .on('messageReactionAdd', async (reaction, user) => {
     roleService.add_group(reaction, user)
   })

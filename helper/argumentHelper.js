@@ -9,4 +9,9 @@ module.exports = {
         }
         else return argument;
     },
+    // removes all non-number characters from string, returns the remaining number.
+    return_number: function (str) { 
+        var num = str.replace(/[^0-9]/g, ''); 
+        return parseInt(num, 10); 
+    }
 };
