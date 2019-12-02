@@ -3,6 +3,7 @@ const path = require('path');
 const config = require('./config.json');
 const roleService = require('./services/roleService')
 const colors = require('colors')
+const { schedule_reminders } = require('./commands/utility/reminder')
 
 const client = new CommandoClient({
   commandPrefix: '.',
@@ -25,11 +26,12 @@ client.registry
   .registerDefaultCommands()
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.once('ready', () => {
+client.once('ready', () => {  
   client.user.setActivity(".help", {
     type: "LISTENING"
   })
   console.log('\n')
+  schedule_reminders(client);
   console.log(`Logged in as`.brightBlue.underline
   + `\n`
   + `name:`.brightCyan.underline

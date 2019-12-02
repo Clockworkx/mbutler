@@ -1,18 +1,29 @@
 const math = require('mathjs');
 const Discord = require('discord.js');
+const { Command } = require('discord.js-commando');
 
-module.exports = {
-	name: 'calc',
-	aliases: ['latency', 'lag'],
-	description: 'shows ping from you to the server and back to you.',
-	uses_arguments: true,
-	usage: '',
-	guild_only: true,
-	cooldown: 5,
-	execute(message, arguments) {
+module.exports = class CalculateCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: 'calculate',
+			aliases: ['calc'],
+			group: 'utility',
+			memberName: 'calculate',
+            description: 'calculates expressions',
+            args: [
+                {
+                    key: 'expression',
+                    prompt: 'Enter expression',
+                    type: 'string',
+                },
+            ],
+		});
+	}
+
+	run(message, { expression }) {
 		let response;
 		try {
-			response = math.evaluate(arguments.join(' '));
+			response = math.evaluate(expression);
 
 		} catch (e) {
 			return message.channel.send('invalid calculation!');
@@ -21,10 +32,9 @@ module.exports = {
 		const math_embed = new Discord.MessageEmbed()
 		.setColor('RANDOM')
 		.setTitle('Calculation')
-		.addField('Input', `\`\`\`js\n${arguments.join('')}\`\`\``)
+		.addField('Input', `\`\`\`\n${expression}\`\`\``)
 		.addField('Output', `\`\`\`${response}\`\`\``)
 
-		message.channel.send(math_embed);
-        
-	},
+		return message.channel.send(math_embed);
+	}
 };
