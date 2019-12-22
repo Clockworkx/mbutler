@@ -2,9 +2,8 @@ const { Reminder } = require('../../dbObjects')
 const moment = require('moment')
 const schedule = require('node-schedule');
 const { format, addHours, addDays, addMinutes, addSeconds, differenceInSeconds, compareAsc } = require('date-fns') 
-const { return_number } = require('../../helper/argumentHelper')
 const Sequelize = require('sequelize');
-const { isUnit } = require('../../util/util')
+const { isUnit, generate_pages, display_page } = require('../../util/util')
 const Countdown = require('moment-countdown');
 
 const { Command, RichDisplay } = require('klasa');
@@ -17,44 +16,34 @@ module.exports = class extends Command {
 			subcommands: true,
 			aliases: ['remindme', 'rm'],
 			promptLimit: 1,
-			usage: '<test|list|delete|me:default> (reminder_id:id) (text:text) (time:time) (unit:unit) (page:page)',
+			usage: '<list|delete|me:default> (reminder_id:id) (text:text) (time:time) (unit:unit) (page:page)',
 			usageDelim: ' ',
 			description: 'uwu',
 			extendedHelp: 'text',
 		});
 
 		this.createCustomResolver('id', (arg, possible, msg, [arg1]) => {
-			console.log('argsid', msg.args)
-			console.log('parid', msg.params)
 			if (arg1 !== 'delete') return undefined 
 			if (arg1 === 'delete' &&  !isNaN(arg)) return arg 
 			else throw 'missing id';
 		})
 		.createCustomResolver('text', (arg, possible, msg, [arg1]) => {
-			console.log('argstext', msg.args)
-			console.log('partext', msg.params)
 			if (arg1 !== 'me') return undefined 
 			if (arg) return arg;
 			else throw 'Reminder needs content';
 		})
 		.createCustomResolver('time', (arg, possible, msg, [arg1]) => {
-			console.log('argstime', msg.args)
-			console.log('partime', msg.params)
 			if (arg1 !== 'me') return undefined 
 			console.log('number test',  isNaN(arg))
 			if (arg1 === 'me' && !isNaN(arg)) return parseFloat(arg)
 			else throw 'provide time';
 		})
 		.createCustomResolver('unit', (arg, possible, msg, [arg1]) => {
-			console.log('argsuni', msg.args)
-			console.log('paruni', msg.params)
 			if (arg1 !== 'me') return undefined 
 			if (arg1 === 'me' && isUnit(arg)) return arg.toLowerCase();
 			else throw 'time unit (hours/..)';
 		})
 		.createCustomResolver('page', (arg, possible, msg, [arg1]) => {
-			console.log('argspage', msg.args)
-			console.log('parpage', msg.params)
 			console.log('isnan', isNaN(arg))
 			if (arg1 !== 'list' || !arg) return undefined 
 			if (arg && isNaN(arg)) throw 'give a page number please';
@@ -64,10 +53,9 @@ module.exports = class extends Command {
 	}
 	
 	async me(message, [id, text, time, unit]) {
-		message.channel.send('me triggered')
-		console.log('args', message.args)
-		console.log('params', message.params)
-		console.log(text, time, unit)
+		// console.log('args', message.args)
+		// console.log('params', message.params)
+		// console.log(text, time, unit)
 		// const tests = [
 		// 		Reminder.upsert({ discord_id: '1', reminder_content: 'Tea', date: addSeconds(new Date(), 30), is_reminded:false }),
 		// 		Reminder.upsert({ discord_id: '1', reminder_content: 'Tea2', date: addSeconds(new Date(), 60), is_reminded:false }),
@@ -91,9 +79,7 @@ module.exports = class extends Command {
 		if (time_unit === 'day' || time_unit === 'days'){
 			execution_date = addDays(now, time)
 		} 
-		//let test = now.toISOString();
-		//console.log(test)
-		//var dateString = now.toString();
+
 
 		//add reminder to database
 		Reminder.create({
@@ -105,9 +91,6 @@ module.exports = class extends Command {
 			//console.log('reminder object', reminder)
 			start_reminder(execution_date, reminder, this.client)
 			message.channel.send(`I will remind you in ${time} ${time_unit} about **${reminder.reminder_content}**`)
-			//message.say(`Reminder \"${reminder.reminder_content}\" added id: ${reminder.id} date: ${reminder.date}`);
-			
-			//console.log('job', job)
 			
 		}).catch(error => console.log(error))
 
@@ -127,71 +110,12 @@ module.exports = class extends Command {
 			});
 			
 			const tagString = tagList.map(t => `${t.id} |\t${t.reminder_content} | in ${moment().countdown(t.date)}`) || 'No tags set.';
-		
-			message.channel.send(`as`)
-	
-		
+
 		if (tagList.length > 0) {
-			
-			
-			
 			let pages = generate_pages(tagString, 10)
 			display_page(pages, page_number)
-			
-
-			function generate_pages (content, page_entries) {
-				let pages = [];
-				let last_index = 0
-				console.log('reminders', content.length)
-				let pages_required = Math.ceil(content.length / 10)
-				console.log('pr', pages_required)
-				
-
-				for (let i = 0; i < pages_required; i++) {
-					//console.log('first if iter', i)
-					let page = [];
-					for (let i = 0; i < page_entries; i++) {
-						//console.log('page begin', page)
-						
-						if (typeof content[last_index] === 'undefined') {
-							//console.log('undefined last ele', content[last_index])
-							break
-
-						} 
-						//console.log('sec if iter', i)
-						//console.log('12', content[last_index])
-						//console.log('lastindex', last_index);
-
-						
-						page.push(content[last_index])
-						last_index = last_index + 1
-						//console.log('page end', page)
-						
-						
-					}
-					pages.push(page.join('\n'))	
-				}
-				return pages				
-
-			}
-			function display_page (pages, page_number) {
-				console.log('p#', page_number)
-				console.log('page#', typeof page_number)
-				//console.log('page#', page_number)
-				if (page_number <= 0 || typeof page_number === 'undefined'){
-					console.log('page#', typeof page_number)
-					page_number = 1;
-					console.log('page#', typeof page_number)
-
-				} 
-
-				return message.channel.send(`ID\t Reminder\n${pages[page_number-1]}\n\npage ${page_number}/${pages.length}`, { code: 'md' })
-				
-			}
 		}
-
-		else return message.channel.send('No reminders found.')
-
+		else return message.channel.send('No reminders found.').then(msg => msg.delete({timeout: 15000}));
 	}
 		
 	
