@@ -1,26 +1,42 @@
 const weather = require('weather-js');
 const Discord = require('discord.js');
-const { Command } = require('discord.js-commando');
 
-module.exports = class WeatherCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'weather',
-			group: 'search',
-			memberName: 'weather',
+ /**
+ * @param {import('klasa').KlasaMessage} message
+ */
+
+const { Command } = require('klasa');
+
+module.exports = class extends Command {
+
+    constructor(...args) {
+        super(...args, {
+            name: 'weather',
+            enabled: true,
+            runIn: ['text', 'dm', 'group'],
+            cooldown: 0,
+            deletable: false,
+            bucket: 1,
+            aliases: [''],
+            guarded: false,
+            nsfw: false,
+            permissionLevel: 0,
+            requiredPermissions: [],
+            requiredSettings: [],
+            subcommands: false,
+            extendedHelp: 'Enter the location, e.g. "San Francisco, CA',
             description: 'get weather information for your city/country/apache helicopter',
-            args: [
-                {
-                    key: 'location',
-                    prompt: 'Enter the location, e.g. "San Francisco, CA',
-                    type: 'string',
-                },
-            ],
-		});
-	}
+            quotedStringSupport: true, 
+            usage: '<location:string>',
+            usageDelim: '',
+            extendedHelp: 'No extended help available.'
+        });
 
-	run(message, { location }) {
-		weather.find({search: location, degreeType: 'C'}, function(err, result){
+         
+          
+    }
+    async run(message, [location]) {
+        weather.find({search: location, degreeType: 'C'}, function(err, result){
             if (err) message.channel.send(err)
 
             if (result === undefined || result.length === 0 ){
@@ -49,5 +65,13 @@ module.exports = class WeatherCommand extends Command {
 
             message.channel.send(weather_embed);
         });
-	}
+    }
+
+    async init() {
+        /*
+         * You can optionally define this method which will be run when the bot starts
+         * (after login, so discord data is available via this.client)
+         */
+    }
+
 };

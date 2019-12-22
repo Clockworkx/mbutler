@@ -1,37 +1,26 @@
-const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const config = require('./config.json');
 const roleService = require('./services/roleService')
 const colors = require('colors')
-const { schedule_reminders } = require('./commands/utility/reminder')
+const { schedule_reminders } = require('./commands/Search/reminder')
+const { Client } = require('klasa');
 
-const client = new CommandoClient({
-  commandPrefix: '.',
-  owner: '193676015623602176',
-  invite: 'https://discord.gg/z3PUM4G',
+const client = new Client({
+  fetchAllMembers: false,
+  prefix: '.',
+  commandEditing: true,
+  typing: true,
   partials: ['MESSAGE', 'CHANNEL'],
 });
 
-client.registry
-  .registerDefaultTypes()
-  .registerGroups([
-    ['admin', 'Admin'],
-    ['text-edit', 'Text Manipulation'],
-    ['fun', 'Fun'],
-    ['info', 'Information'],
-    ['utility', 'Utility'],
-    ['search', 'Searches the Web'],
-  ])
-  .registerDefaultGroups()
-  .registerDefaultCommands()
-  .registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.once('ready', () => {  
+  schedule_reminders(client);
   client.user.setActivity(".help", {
     type: "LISTENING"
   })
   console.log('\n')
-  schedule_reminders(client);
+ // schedule_reminders(client);
   console.log(`Logged in as`.brightBlue.underline
   + `\n`
   + `name:`.brightCyan.underline
