@@ -113,7 +113,20 @@ module.exports = class extends Command {
 
 		if (tagList.length > 0) {
 			let pages = generate_pages(tagString, 10)
-			display_page(pages, page_number)
+			//display_page(pages, page_number)
+			const list_embed = new RichDisplay(new MessageEmbed()
+			.setColor('RANDOM')
+			.setTitle('Your Reminders')
+			.setDescription('These are your reminders:')
+			);
+
+
+			let to_edit = new MessageEmbed().setDescription('Loading')
+			for (let i = 0; i < pages.length; i++){
+				list_embed.addPage(template => template.setDescription(`ID\tReminder\n${pages[i]}`));
+			}
+			list_embed.run(await message.channel.send(new MessageEmbed().setDescription('Loading')))
+			//return message.channel.send(`ID\t Reminder\n${pages[page_number-1]}\n\npage ${page_number}/${pages.length}`, { code: 'md' })
 		}
 		else return message.channel.send('No reminders found.').then(msg => msg.delete({timeout: 15000}));
 	}
