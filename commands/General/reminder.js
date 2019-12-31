@@ -16,6 +16,7 @@ module.exports = class extends Command {
 			subcommands: true,
 			aliases: ['remindme', 'rm'],
 			promptLimit: 1,
+			quotedStringSupport: true,
 			usage: '<list|delete|me:default> (reminder_id:id) (text:text) (time:time) (unit:unit) (page:page)',
 			usageDelim: ' ',
 			description: 'uwu',

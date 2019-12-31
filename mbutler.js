@@ -2,7 +2,7 @@ const path = require('path');
 const config = require('./config.json');
 const roleService = require('./services/roleService')
 const colors = require('colors')
-const { schedule_reminders } = require('./commands/Search/reminder')
+const { schedule_reminders } = require('./commands/General/reminder')
 const { Client } = require('klasa');
 
 const client = new Client({
