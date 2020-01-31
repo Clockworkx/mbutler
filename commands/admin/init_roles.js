@@ -1,4 +1,5 @@
 const { Command } = require('klasa');
+const Discord = require('discord.js')
 
 module.exports = class extends Command {
 
