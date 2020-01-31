@@ -44,9 +44,9 @@ module.exports = class extends Command {
 			`<a:Minecraft:672636777537994760> - Minecraft\n`+
 			`<:SocialGames:672639408226172958> - Social Games (Games like Scribble.io, Monopoly and the like)\n\n`+
 			`__**Do you want to see bot-related channels?**__\n`+
-            `<a:Botuser:672638014131929113> - Marco's Butler Channel <#651136328871837706> (My own Discord Bot)\n`+
+            `<a:Botuser:672650072697339914> - Marco's Butler Channel <#651136328871837706> (My own Discord Bot)\n`+
             `<:MusicChannel:672641167778906122> - Musicbot channel <#563758825212215296> (Queue music to the Music Bot)\n`+
-            `<:Pokecord:672641834442424321> - Pokecord Channel <#564469705687957559> (Catching Pokemon in Discord)`
+            `<:PokeCatching:672650088027521025> - Pokecord Channel <#564469705687957559> (Catching Pokemon in Discord)`
 
 
 			);
