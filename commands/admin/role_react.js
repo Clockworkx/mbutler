@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const { Command } = require('klasa');
-const emoji = require('node-emoji')
 
 module.exports = class extends Command {
 
