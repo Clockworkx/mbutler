@@ -30,15 +30,9 @@ module.exports = class extends Command {
           
     }
     async run(message, [first, second]) {
-        message.channel.messages.fetch('638265593090408449') //📰
-        .then(msg => msg.react('672637041535615016'))
-        .then(reaction =>  reaction.message.react('672637538229288970'))
-        .then(reaction =>  reaction.message.react('672636777537994760'))
-        .then(reaction =>  reaction.message.react('672639408226172958'))
+        message.channel.messages.fetch('626583570550358017') //📰
+        .then(msg => msg.react('672631229752803358'))
         .then(reaction =>  reaction.message.react('672627816080343050'))
-        .then(reaction =>  reaction.message.react('672641167778906122'))
-        .then(reaction =>  reaction.message.react('672641834442424321'))
-        
         
         // .then(msg => { message.channel.send(emoji.which(emoji.get(reaction.emoji.name)
         //     msg.react('🤖').then(reaction => {

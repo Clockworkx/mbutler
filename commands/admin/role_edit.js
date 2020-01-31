@@ -29,31 +29,25 @@ module.exports = class extends Command {
           
     }
     async run(message, [first, second]) {
-		message.channel.messages.fetch('626583570550358017').then(msg => {
+		message.channel.messages.fetch('638265593090408449').then(msg => {
 			const received_embed = msg.embeds[0];
 			const edited_embed = new Discord.MessageEmbed(received_embed)
-			.setDescription(`Reagiere mit dem entsprechenden emoji um deine Klassen und weitere Gruppen auszuwählen\n\n
-            __**Klassen**__\n`+
-			//`${received_embed.description}\n`+
-			`<:Priester:626434117038374912> - Priester\n` +
-			`<:Seelenfessler:626434116803362836> - Seelenfessler\n` +
-			`<:Runenfechter:626434116740710431> - Runenfechter\n` +
-			`<:Schlaeger:626434116660887554> - Schläger\n` +
-			`<:Magier:626434116866408449> - Magier\n` +
-			`<:Assassine:626434116497440780> - Assassine\n` +
-			`<:Kanonier:626434116862345226> - Kanonier\n` +
-			`<:Bogenschuetze:626432685627277361> - Bogenschütze\n` +
-			`<:Berserker:626434116845568040> - Berserker\n` +
-			`<:Bandit:626434116866408448> - Bandit\n` +
-			`<:Ritter:626434116669276191> - Ritter\n\n`+
-			`__**Lust mit anderen Maplern andere Spiele zu spielen?**__\n`+
-			`<:lol:632977206242443335> - League of Legends\n`+
-			`<a:minecraft:632976785792958483> - Minecraft\n`+
-			`<:rubiks:632977276392177674> - Social Games (Spiele wie scribble.io, Monopoly und der gleichen)\n\n`+
-			`__**Möchtest du den Channel mit offiziellen Maple Story 2 news sehen?**__\n`+
-			`<:News:672631229752803358> - MS2 News Channel\n\n`+
-			`__**Möchtest du den Channel für Botbefehle sehen?**__\n`+
-			`<a:Botnutzer:672627816080343050> - Serverbot Channel\n\n`
+			.setDescription(`__**React with the correct emoji to get your server roles.**__\n\n`+
+            `<:LeagueOfLegends:638257644292931589> - League of Legends\n` +
+            `<:TFT:672637041535615016> - Teamfight Tactics\n`+
+		    `<:CSGO:638254615535681539> - Counter Strike:Global Offensive\n` +
+		    `<:RocketLeague:638254640722477056> - Rocket League\n` +
+		    `<:TheDivision2:638254650469908490> - The Division 2\n` +
+	    	`<a:RainbowSixSiege:638254624695910410> - Rainbow Six Siege\n`+
+            `<:ApexLegends:638263898880868353> - Apex Legends\n`+
+            `<:Overwatch:672637538229288970> - Overwatch\n`+
+			`<a:Minecraft:672636777537994760> - Minecraft\n`+
+			`<:SocialGames:672639408226172958> - Social Games (Games like Scribble.io, Monopoly and the like)\n\n`+
+			`__**Do you want to see bot-related channels?**__\n`+
+            `<a:Botuser:672638014131929113> - Marco's Butler Channel <#651136328871837706> (My own Discord Bot)\n`+
+            `<:MusicChannel:672641167778906122> - Musicbot channel <#563758825212215296> (Queue music to the Music Bot)\n`+
+            `<:Pokecord:672641834442424321> - Pokecord Channel <#564469705687957559> (Catching Pokemon in Discord)`
+
 
 			);
 			//message.channel.send(edited_embed);
