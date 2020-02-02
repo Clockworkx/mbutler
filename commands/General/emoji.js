@@ -1,21 +1,23 @@
+const { MessageEmbed } = require('discord.js');
 const Discord = require('discord.js');
+const { isUnit, generate_pages, display_page } = require('../../util/util')
  /**
  * @param {import('klasa').KlasaMessage} message
  */
 
-const { Command } = require('klasa');
+const { Command, RichDisplay } = require('klasa');
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            name: 'emojilist',
+            name: 'emoji',
             enabled: true,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,
             bucket: 1,
-            aliases: ['si'],
+            aliases: ['e'],
             guarded: false,
             nsfw: false,
             permissionLevel: 0,
@@ -24,7 +26,7 @@ module.exports = class extends Command {
             subcommands: false,
             description: '',
             quotedStringSupport: true, 
-            usage: '',
+            usage: '<emoji_type:string>',
             usageDelim: '',
             extendedHelp: 'No extended help available.'
         });
@@ -32,24 +34,17 @@ module.exports = class extends Command {
          
           
     }
-    async run(message, [first, second]) {
-        console.log(this.client.user.avatarURL())
-        const embed = new Discord.MessageEmbed()
-        .setTitle(`Serverinfo for ${message.guild.name}`)
-        .setAuthor('Some name', this.client.user.avatarURL())
-        .setThumbnail(this.client.user.avatarURL())
-        .setDescription(`For help with the server contact ${message.guild.owner}`)
-        .addField('Usercount', message.guild.members.filter(members => !members.user.bot).size, true)
-        .addField('Created at', message.guild.createdAt, true)
-        .addBlankField()
-        .addField('Serverbot', this.client.user, true)
-        .addField(`Commands`, `Type .help in any chat to get a list of commands.`, true)
-        .setColor('RANDOM')
-
-
-        message.channel.send(embed)
+    async run(message, [emoji_input]) {
         
 
+        message.delete({ timeout: 5000 });
+        let emoji = message.guild.emojis.find(emoji => emoji.name.toLowerCase() === emoji_input.toLowerCase())
+        if (emoji) message.channel.send(emoji.toString())
+        else message.channel.send('Emoji not found')
+
+        
+
+       
     }
 
     async init() {
