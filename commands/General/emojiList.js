@@ -40,7 +40,6 @@ module.exports = class extends Command {
 			const list_embed = new RichDisplay(new MessageEmbed()
             .setColor('RANDOM')
 			.setTitle('hi')
-			
 			);
 
            
