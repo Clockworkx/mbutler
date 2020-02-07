@@ -43,8 +43,12 @@ module.exports = class extends Command {
             "X-Riot-Token": "RGAPI-ed168ce1-8331-443f-ba05-81e2f7b0c647"
 
         }
-
-        const summoner_url = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summoner_name; // by summoner name
+        
+        console.log(summoner_name)
+        //console.log(encodeURIComponent(summoner_name.trim()))
+        const summoner_url = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summoner_name.replace(/ /g,"%20") // by summoner name
+        console.log('summoner url', summoner_url);
+        
 
         const summoner = await fetch(summoner_url, {
             method: 'get',
@@ -52,7 +56,9 @@ module.exports = class extends Command {
         })
         .then(response => response.json())
 
-        const match_id_url = 'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/' + summoner.puuid.toString() + '/ids?count=5'
+        console.log(summoner.puuid)
+        const match_id_url = 'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/' + 'knOZaoQdy3jNiwF_KYJwKjSzPTFdvZ3giqAldA63GFzlgL2mLATgDLB_LfUopDQ1QOTJI_5kL0sIDw' + '/ids?count=5'
+        
 
         const match_id = await fetch(match_id_url, {
             method: 'get',
@@ -74,7 +80,7 @@ module.exports = class extends Command {
         }
         //match_info[0].info.participants.filter(participant => participant.puuid === summoner.puuid)
 
-        console.log(match_info[1])
+        //console.log(match_info[1])
       //  console.log(match_id)
        // message.channel.send(data.entries[0].summonerName.toString())
        const tft_match_display = new RichDisplay(new MessageEmbed()
@@ -83,7 +89,7 @@ module.exports = class extends Command {
        for (let i = 0; i < match_id.length; i++) {
 
         
-        console.log(match_info)
+        //console.log(match_info)
         let page = new MessageEmbed()
         .setColor('RANDOM')
         .setTitle(`Match ${i+1}: Placed ${ordinal_suffix(match_info[i].placement)}\n`)
@@ -92,7 +98,7 @@ module.exports = class extends Command {
         let traits = match_info[i].traits.filter(trait => trait.tier_current > 0);
         traits.sort((a, b) => b.num_units - a.num_units)    
         let trait_string = traits.map(traits => `${traits.num_units} ${traits.name}`).join(' ') || 'No activated traits';
-       console.log(trait_string)
+      // console.log(trait_string)
         page.setDescription(`**Traits: ${trait_string}**`)
 
         
@@ -103,6 +109,7 @@ module.exports = class extends Command {
         
         let units = [];
         for (let j of match_info[i].units) {
+            console.log(match_info[i].units)
             let items = [];
             if (j.items.length){
                 for (let k of j.items) {
@@ -115,7 +122,9 @@ module.exports = class extends Command {
         }
         
         for (let i = 0; i < units.length; i++) {
-            page.addField(`Unit ${i+1}`, units[i], true)
+            if(units[i]) page.addField(`Unit ${i+1}`, `${units[i]}`, true)
+            else page.addField(`Unit missing, will fix later.`)
+            
         }
         page
         .addBlankField()
