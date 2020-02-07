@@ -57,7 +57,7 @@ module.exports = class extends Command {
         .then(response => response.json())
 
         console.log(summoner.puuid)
-        const match_id_url = 'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/' + 'knOZaoQdy3jNiwF_KYJwKjSzPTFdvZ3giqAldA63GFzlgL2mLATgDLB_LfUopDQ1QOTJI_5kL0sIDw' + '/ids?count=5'
+        const match_id_url = 'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/' + summoner.puuid.toString() + '/ids?count=5'
         
 
         const match_id = await fetch(match_id_url, {
