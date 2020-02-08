@@ -100,7 +100,7 @@ module.exports = class extends Command {
            // let match_date = new Date(matches[i].info.game_datetime * 1000)
            // let match_date_string = `${match_date.getDate()} ${match_date.getMonth()} ${match_date.getFullYear()}`
 
-            console.log(match_date)
+           // console.log(match_date)
 
             let page = new MessageEmbed()
 
