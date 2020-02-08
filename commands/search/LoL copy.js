@@ -8,6 +8,7 @@ const { isUnit, generate_pages, display_page } = require('../../util/util')
 const { Command, RichDisplay } = require('klasa');
 const fetch = require('node-fetch')
 const item_data = require('../../assets/TFT static data/items')
+const companion = require('../../assets/TFT static data/companions.json')
 const { ordinal_suffix } = require('../../util/util')
 var format = require('date-fns/format')
 
@@ -43,7 +44,7 @@ module.exports = class extends Command {
             "Content-Type": "Authorization",
             "X-Riot-Token": "RGAPI-83dbb373-c3ce-4bd7-8cd6-3dc679ae5f04"
         }
-        
+        const companion_image_url = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/'
         const uniform_summoner_name = encodeURI(summoner_name)
         console.log('entered Summoner name', summoner_name)
         console.log('uniform Summoner name', uniform_summoner_name)
@@ -87,33 +88,48 @@ module.exports = class extends Command {
             matches[i]['info']= match.info
         }
 
+        
+
         //console.log(matches[0])
         let date = new Date()
         console.log(format(date, 'd/MM/yyyy' ))
         console.log(date)
        
         const tft_match_display = new RichDisplay(new MessageEmbed())
+        console.log(matches[0])
 
         for (let i = 0; i < match_id.length; i++) {
             let active_traits = matches[i].traits.filter(traits => traits.tier_current > 0 )
             let traits_string = active_traits.map(traits => `${traits.num_units} ${traits.name}`).join(' ');
+            
+            
+            const companion_image_path = companion.find(companion => companion.contentId === matches[i].companion.content_ID ).loadoutsIcon.split('/')
+            const companion_image_name = companion_image_path[companion_image_path.length-1].toLowerCase()
+
+
+            console.log(companion_image_name)
            // let match_date = new Date(matches[i].info.game_datetime * 1000)
-           // let match_date_string = `${match_date.getDate()} ${match_date.getMonth()} ${match_date.getFullYear()}`
+           // let match_date_string = `${match_date.getDate()} ${match_date.getMonth()} ${match_date.getFullYear()}
+            
 
            // console.log(match_date)
+
 
             let page = new MessageEmbed()
 
             
 
             .setTitle(`Match ${i+1}: Placed ${ordinal_suffix(matches[i].placement)}`)
+            .setThumbnail(companion_image_url + companion_image_name)
             .setColor('RANDOM')
             .setDescription(traits_string)
 
 
             for (let j = 0; j < matches[i].units.length; j++) {
-                if(matches[i].units.length){
+                if(matches[i].units.length > 0){
                     let item_string = item_to_String(matches[i].units[j].items)
+
+
                     page.addField(`Unit ${j+1}`, `${matches[i].units[j].character_id.slice(5)}\n ${item_string}`, true)
                 }
                 
