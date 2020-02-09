@@ -42,7 +42,7 @@ module.exports = class extends Command {
     async run(message, [summoner_name]) {
         const headers = {
             "Content-Type": "Authorization",
-            "X-Riot-Token": "RGAPI-83dbb373-c3ce-4bd7-8cd6-3dc679ae5f04"
+            "X-Riot-Token": "RGAPI-038ce08a-0876-40ad-a44c-644d127ef63d"
         }
         const companion_image_url = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/'
         const uniform_summoner_name = encodeURI(summoner_name)
