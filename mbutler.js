@@ -30,9 +30,9 @@ client.once('ready', () => {
   + ` ${client.user.id}`.brightYellow
   + `\n`
   + `on Servers:`.brightMagenta.underline);
-  client.guilds.forEach((guild) => {
-    console.log(` -  ${guild.name}`.brightYellow);
-  })
+  // client.guilds.forEach((guild) => {
+  //   console.log(` -  ${guild.name}`.brightYellow);
+  // })
   console.log(`\n` + `Everything is loaded and ready!`.rainbow.underline);
 });
 

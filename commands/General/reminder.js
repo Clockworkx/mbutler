@@ -152,7 +152,6 @@ module.exports = class extends Command {
 
 	}
 	async test(message, params) {
-
 		const embed = new MessageEmbed().setDescription('embed1');
 		const embed2 = new MessageEmbed().setDescription('embed2');
 		message.channel.send(embed).then(msg => msg.edit(embed2));
@@ -163,15 +162,7 @@ module.exports = class extends Command {
 		// 	display.run(await message.send('load'));
 		// 	message.channel.send(embed).then(msg => console.log('edited message', msg.editable))
 		message.channel.send('const version = 12;', { code: 'js' });
-
-
-
-
-		}
-		
-	
-	
-	
+		}	
 };
 
 function schedule_reminders(client) {
@@ -201,16 +192,14 @@ function schedule_reminders(client) {
 						console.log('is_reminded updated:', result[1][0]['id'])
 					}).catch(error => console.log(error));
 			}
-			
-		}
-		
+		}	
 	})
 }
 
 function start_reminder (date, reminder, client) {
 
 	let job = schedule.scheduleJob(date, function(){
-		client.users.get(reminder['discord_id']).send(`You wanted me to remind you about: **${reminder['reminder_content']}**`);
+		client.users.cache.get(reminder['discord_id']).send(`You wanted me to remind you about: **${reminder['reminder_content']}**`);
 
 		//console.log('difference between dates in sec ',differenceInSeconds(eh, schedule_now))
 		Reminder.update({
@@ -231,7 +220,7 @@ function start_reminder (date, reminder, client) {
 				// [x, y] if you are using Postgres
 			}).catch(error => console.log(error));
 		})
-		console.log('next invo', job.nextInvocation());	
+		//console.log('next invo', job.nextInvocation());	
 	}
 
 

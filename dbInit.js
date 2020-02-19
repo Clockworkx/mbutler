@@ -7,12 +7,12 @@ const sequelize = new Sequelize('mbutler_test', 'postgres', '0720', {
 });
 
 const Reminders = sequelize.import('models/Reminders');
-//sequelize.import('models/Users');
-//sequelize.import('models/UserItems');
+sequelize.import('models/colorRoles');
+sequelize.import('models/colorRolesUser');
 
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 
-sequelize.sync({ force: true }).then(async () => {
+sequelize.sync({}).then(async () => {
 	// const tests = [
 	// 	Reminders.upsert({ name: 'Tea', cost: 1 }),
 	// 	Reminders.upsert({ name: 'Coffee', cost: 2 }),
