@@ -42,14 +42,14 @@ module.exports = class extends Command {
     async run(message, [summoner_name]) {
         const headers = {
             "Content-Type": "Authorization",
-            "X-Riot-Token": "RGAPI-038ce08a-0876-40ad-a44c-644d127ef63d"
+            "X-Riot-Token": "RGAPI-1164bf46-a842-46d8-97fc-1903f3fba633"
         }
         const companion_image_url = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/'
         const uniform_summoner_name = encodeURI(summoner_name)
         
 
 
-        const summoner_url = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' 
+        const summoner_url = 'https://euw1.api.riotgames.com/tft/summoner/v1/summoners/by-name/' 
         + uniform_summoner_name // by summoner name .replace(/ /g,"%20")
         //console.log('summoner url', summoner_url);
 
