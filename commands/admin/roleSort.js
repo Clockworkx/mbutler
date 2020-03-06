@@ -34,7 +34,7 @@ module.exports = class extends Command {
     async run(message, [expression]) {
         const cRoles = await colorRolesDb.findAll();
         
-        let lastPosition = message.guild.roles.highest.rawPosition - 4
+        let lastPosition = message.guild.roles.highest.rawPosition // - 4
         for (let i = 0; i < cRoles.length; i++) {
             console.log('pos to set to', lastPosition)
             console.log('role name', cRoles[i].roleName)
