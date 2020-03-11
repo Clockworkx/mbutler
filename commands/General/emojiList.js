@@ -48,7 +48,7 @@ module.exports = class extends Command {
             
             let n = 0;
             let page;
-            for (let i of message.guild.emojis.filter(animated => animated.animated === is_animated )) {
+            for (let i of message.guild.emojis.cache.filter(animated => animated.animated === is_animated )) {
                 
                 if (n % 9 === 0){
                     page = new MessageEmbed()

@@ -38,7 +38,7 @@ module.exports = class extends Command {
         
 
         message.delete({ timeout: 5000 });
-        let emoji = message.guild.emojis.find(emoji => emoji.name.toLowerCase() === emoji_input.toLowerCase())
+        let emoji = message.guild.emojis.cache.find(emoji => emoji.name.toLowerCase() === emoji_input.toLowerCase())
         if (emoji) message.channel.send(emoji.toString())
         else message.channel.send('Emoji not found')
 
