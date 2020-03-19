@@ -34,12 +34,10 @@ module.exports = class extends Command {
           
     }
     async give(message, [user, points]) {
-        console.log(message.author.id)
         if (message.author.id !== '381550162973294602' && message.author.id !== '193676015623602176') return message.channel.send('Missing permission!')
         const UserPoints = await Points.findOne({
             where: { DiscordUserId: user.id } })
             .then()
-            //console.log(UserPoints.Points)
             
             if (UserPoints) {
                 points += UserPoints.Points
@@ -66,12 +64,12 @@ module.exports = class extends Command {
             })
             
             const leaderboardEmbed = new Discord.MessageEmbed()
-            .setTitle('Points Leaderboard')
+            .setTitle('bomo Punkte Leaderboard')
             .setThumbnail('https://i.imgur.com/GTy1o5U.jpg')
             .setColor('RANDOM')
             for (let i = 0; i < UserPoints.length; i++) {
                 const name = await (await this.client.users.fetch(UserPoints[i].DiscordUserId.toString()))//.toString()
-                leaderboardEmbed.addField(`Rank ${i+1}`, `${name.username} \`\`Points: ${UserPoints[i].Points}💰\`\``)
+                leaderboardEmbed.addField(`Rank ${i+1}`, `${name.username} \`\`bomo Punkte: ${UserPoints[i].Points}💰\`\``)
 
             }
 
