@@ -34,15 +34,12 @@ module.exports = class extends Command {
           
     }
     async give(message, [user, points]) {
-        console.log('uzser id', user.id)
         const UserPoints = await Points.findOne({
             where: { DiscordUserId: user.id } })
             .then()
             //console.log(UserPoints.Points)
             
             if (UserPoints) {
-                console.log('punkte', points)
-                console.log(UserPoints)
                 points += UserPoints.Points
                 await Points.update({ Points: points }, {
                     where: {
@@ -63,16 +60,12 @@ module.exports = class extends Command {
     }
 
     async list(message, []) {
-        //console.log(this.client)
         const UserPoints = await Points.findAll({ order: [['Points', 'DESC']], limit: 10
             })
             
             const leaderboardEmbed = new Discord.MessageEmbed()
             for (let i = 0; i < UserPoints.length; i++) {
-                console.log(UserPoints[i].DiscordUserId)
                 const name = await (await this.client.users.fetch(UserPoints[i].DiscordUserId.toString())).toString()
-                console.log(name)
-                message.channel.send(name)
                 leaderboardEmbed.addField(`Rank ${i+1}`, `${name} \`\`Points: ${UserPoints[i].Points}💰\`\``)
 
             }
