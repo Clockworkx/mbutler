@@ -9,6 +9,7 @@ const sequelize = new Sequelize('mbutler_test', 'postgres', '0720', {
 const Reminders = sequelize.import('models/Reminders');
 sequelize.import('models/colorRoles');
 sequelize.import('models/colorRolesUser');
+sequelize.import('models/Points');
 
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 
