@@ -4,8 +4,8 @@ module.exports = {
     add_group: async function (reaction, user) {
         let apply_role = async () => {
             let emoji_name = reaction.emoji.name;
-            let role = reaction.message.guild.roles.find(role => role.name.toLowerCase().replace(/\W/gi, '') === emoji_name.toLowerCase());
-            let member = reaction.message.guild.members.find(member => member.id === user.id);
+            let role = reaction.message.guild.roles.cache.find(role => role.name.toLowerCase().replace(/\W/gi, '') === emoji_name.toLowerCase());
+            let member = reaction.message.guild.members.cache.find(member => member.id === user.id);
             try {
                 if(role && member) {
                     //console.log("Role and member found.");
@@ -44,8 +44,8 @@ module.exports = {
     remove_group: async function (reaction, user) {
         let remove_role = async () => {
             let emoji_name = reaction.emoji.name;
-            let role = reaction.message.guild.roles.find(role => role.name.toLowerCase().replace(/\W/gi, '') === emoji_name.toLowerCase());
-            let member = reaction.message.guild.members.find(member => member.id === user.id);
+            let role = reaction.message.guild.roles.cache.find(role => role.name.toLowerCase().replace(/\W/gi, '') === emoji_name.toLowerCase());
+            let member = reaction.message.guild.members.cache.find(member => member.id === user.id);
             try {
                 if(role && member) {
                     //console.log("Role and member found.");
@@ -60,6 +60,7 @@ module.exports = {
       
         if(reaction.message.partial)
         {
+            console.log('yes')
             try {
                 let msg = await reaction.message.fetch(); 
                 //console.log(msg.id);
@@ -75,6 +76,7 @@ module.exports = {
         }
         else 
         {
+            console.log('yes')
             //console.log("Not a partial.");
             if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449') {
                 //console.log('Message in cache');

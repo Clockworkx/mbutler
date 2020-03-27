@@ -10,7 +10,7 @@ const client = new Client({
   prefix: '.',
   commandEditing: true,
   typing: true,
-  partials: ['MESSAGE', 'CHANNEL'],
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
 
 
@@ -42,6 +42,7 @@ client
   //   console.error(`Error in command ${cmd.groupID}:${cmd.memberName}`, err)
   // })
   .on('messageReactionAdd', async (reaction, user) => {
+    console.log('hi')
     roleService.add_group(reaction, user)
   })
   .on('messageReactionRemove', async (reaction, user) => {
