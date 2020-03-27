@@ -60,7 +60,6 @@ module.exports = {
       
         if(reaction.message.partial)
         {
-            console.log('yes')
             try {
                 let msg = await reaction.message.fetch(); 
                 //console.log(msg.id);
@@ -76,7 +75,6 @@ module.exports = {
         }
         else 
         {
-            console.log('yes')
             //console.log("Not a partial.");
             if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449') {
                 //console.log('Message in cache');
