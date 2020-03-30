@@ -84,7 +84,10 @@ module.exports = {
                }
             
             if(collectedAnswers.size > 0) {
-                let candidates = collectedAnswers.get(emojiCharacters[correctAnswer])
+                let candidates = undefined;
+               if (!collectedAnswers.has(emojiCharacters[correctAnswer])) return channel.send('No one has guessed correctly :(')
+               else candidates = collectedAnswers.get(emojiCharacters[correctAnswer])
+                console.log('has it????', collectedAnswers.has(emojiCharacters[correctAnswer]))
                // console.log('candidates', candidates.users.cache)
               //  console.log('reaction', candidates.emoji)
                 //channel.send(`winners size ${candidates.users.cache.size-1}`)
