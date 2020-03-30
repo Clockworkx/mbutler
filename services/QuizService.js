@@ -82,10 +82,17 @@ module.exports = {
                    }
                    
                }
+               const receivedEmbed = quizMessage.embeds[0];
+               const resolvedQuizEmbed = new Discord.MessageEmbed(receivedEmbed).addField('Correct answer:', question.results[0].correct_answer)
+
             
-            if(collectedAnswers.size > 0) {
+               if(collectedAnswers.size > 0) {
                 let candidates = undefined;
-               if (!collectedAnswers.has(emojiCharacters[correctAnswer])) return channel.send('No one has guessed correctly :(')
+               if (!collectedAnswers.has(emojiCharacters[correctAnswer])) {
+                   quizMessage.edit(resolvedQuizEmbed)
+                   return channel.send('No one has guessed correctly :(')
+               }
+                
                else candidates = collectedAnswers.get(emojiCharacters[correctAnswer])
                 console.log('has it????', collectedAnswers.has(emojiCharacters[correctAnswer]))
                // console.log('candidates', candidates.users.cache)
@@ -101,8 +108,7 @@ module.exports = {
                 //     channel.send(winners[i].toString())
                 // }
 
-                const receivedEmbed = quizMessage.embeds[0];
-                const resolvedQuizEmbed = new Discord.MessageEmbed(receivedEmbed).addField('Correct answer:', question.results[0].correct_answer)
+                
                 quizMessage.edit(resolvedQuizEmbed)
 
                 distributeRewards(winners, earnablePoints, channel)
