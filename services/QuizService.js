@@ -71,7 +71,7 @@ module.exports = {
                     await quizMessage.react(emoji)
                 }
             
-                let collectedAnswers = await quizMessage.awaitReactions(filter, { max: 4, time: 15000, });
+                let collectedAnswers = await quizMessage.awaitReactions(filter, { max: 99, time: 15000, });
                 // errors: ['time']  // 
                 console.log('size', collectedAnswers.size)
                for (let i = 0; i < collectedAnswers.size; i++) {
