@@ -16,7 +16,7 @@ module.exports = {
         };
         let date = startQuestion()
         
-        schedule.scheduleJob('*/2 * * * *', async function() {
+        schedule.scheduleJob('*/7 * * * *', async function() {
             let question = await getQuestion()
             let questionText = decodeHtml(question.results[0].question)
             console.log('after func', question)
