@@ -33,7 +33,7 @@ module.exports = {
             .setTitle('Quiz Question!')
             .setColor('RANDOM')
             .setThumbnail('https://i.imgur.com/P5qgda0.png')
-            .setDescription(`${questionText}\n**Reward**`);
+            .setDescription(`${questionText}\n**Reward ${earnablePoints}** points 💰`);
             
             let answerEmojis = [];
             
@@ -71,7 +71,7 @@ module.exports = {
                     await quizMessage.react(emoji)
                 }
             
-                let collectedAnswers = await quizMessage.awaitReactions(filter, { max: 4, time: 5000, });
+                let collectedAnswers = await quizMessage.awaitReactions(filter, { max: 4, time: 15000, });
                 // errors: ['time']  // 
                 console.log('size', collectedAnswers.size)
                for (let i = 0; i < collectedAnswers.size; i++) {
