@@ -16,7 +16,7 @@ module.exports = {
         };
         let date = startQuestion()
         
-        schedule.scheduleJob('*/1 * * * *', async function() {
+        schedule.scheduleJob('*/2 * * * *', async function() {
             let question = await getQuestion()
             let questionText = decodeHtml(question.results[0].question)
             console.log('after func', question)
@@ -71,7 +71,7 @@ module.exports = {
                     await quizMessage.react(emoji)
                 }
             
-                let collectedAnswers = await quizMessage.awaitReactions(filter, { max: 99, time: 15000, });
+                let collectedAnswers = await quizMessage.awaitReactions(filter, { max: 99, time: 25000, });
                 // errors: ['time']  // 
                 console.log('size', collectedAnswers.size)
                for (let i = 0; i < collectedAnswers.size; i++) {
