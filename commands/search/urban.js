@@ -43,7 +43,7 @@ module.exports = class extends Command {
             requiredSettings: [],
             subcommands: false,
             promptLimit: 1,
-            description: '',
+            description: 'look-up words on urban dictionary',
             quotedStringSupport: true, 
             flagSupport: true,
             usage: '(word:word)',

@@ -1,0 +1,202 @@
+SaintMorningheute um 06:52 Uhr
+can someone tell me whether this is an array of objects? [
+  br: {
+    wins: 266,
+    kills: 3916,
+  },
+  br_dmz: {
+    wins: 0,
+    kills: 0,
+ 
+  },
+  br_all: {
+    wins: 266,
+    kills: 3916,
+    
+  }
+]
+Martyheute um 06:53 Uhr
+is that yamel or something? It's not conventional json which makes it look like a config file?
+The trailing commas is an interesting one
+SaintMorningheute um 06:54 Uhr
+it's output from some api
+humblecoderheute um 06:54 Uhr
+@SaintMorning looks like you're trying to do an "associative array" . . . . they don't really exist in JS
+SaintMorningheute um 06:54 Uhr
+maybe I should do some .json() on it?
+Martyheute um 06:54 Uhr
+then yes it looks like a collection of records tailored to a key being an individual
+humblecoderheute um 06:54 Uhr
+change your outside [] to {}
+solarisheute um 06:54 Uhr
+can someone send me guild link where it is explained how to create new channel with the bot
+SaintMorningheute um 06:55 Uhr
+maybe .json() will do the trick?
+humblecoderheute um 06:55 Uhr
+Nope
+Change your braces
+{}
+SaintMorningheute um 06:55 Uhr
+how could I change the braces :open_mouth:
+I don't generate the output
+humblecoderheute um 06:55 Uhr
+oh, where's it coming from?
+SaintMorningheute um 06:55 Uhr
+from call of duty api :open_mouth:
+I tried accessing it like variable[0].br.wins but it didnt work. for some reason variable.br.wins works..
+although this returns true console.log(Array.isArray(playerData))
+I am confused af
+humblecoderheute um 06:57 Uhr
+you try typeof just to see?
+Stitchheute um 06:57 Uhr
+whats ur question again?
+coneillheute um 06:57 Uhr
+typeof [] is 'object' tho
+so that may not be helpful
+humblecoderheute um 06:57 Uhr
+@Stitch got "bad data" from API
+SaintMorningheute um 06:57 Uhr
+I asked this : can someone tell me whether this is an array of objects?
+ [
+  br: {
+    wins: 266,
+    kills: 3916,
+  },
+  br_dmz: {
+    wins: 0,
+    kills: 0,
+ 
+  },
+  br_all: {
+    wins: 266,
+    kills: 3916,
+    
+  }
+]
+coneillheute um 06:57 Uhr
+where are the docs for the api?
+Stitchheute um 06:58 Uhr
+what the heck?
+SaintMorningheute um 06:58 Uhr
+https://github.com/Lierrmm/Node-CallOfDuty#readme
+GitHub
+Lierrmm/Node-CallOfDuty
+Node Wrapper for the "private" Call Of Duty API. Contribute to Lierrmm/Node-CallOfDuty development by creating an account on GitHub.
+
+Stitchheute um 06:58 Uhr
+that doesn make sense lol
+SaintMorningheute um 06:58 Uhr
+It is not direct use of the api, but I thought using that module might work and save myself time :frowning:
+or maybe this is unconventional? 
+let playerData;
+        try {
+            playerData = await codAPI.MWwz(name, codAPI.platforms[platform])
+        }
+        catch (err) {
+            message.channel.send('User not found or wrong platform selected')
+        }
+maybe I am the cause of the bad output :/
+coneillheute um 06:59 Uhr
+https://github.com/Lierrmm/Node-CallOfDuty/blob/master/index.js#L182
+GitHub
+Lierrmm/Node-CallOfDuty
+Node Wrapper for the "private" Call Of Duty API. Contribute to Lierrmm/Node-CallOfDuty development by creating an account on GitHub.
+
+this is dumb
+https://github.com/Lierrmm/Node-CallOfDuty/blob/master/index.js#L182-L185
+Stitchheute um 07:00 Uhr
+no.. its wrong
+it syntactically doesnt even make sense
+coneillheute um 07:00 Uhr
+its "correct" but its obviously not how arrays shoudl be used
+theyre takcing props onto the array object
+Stitchheute um 07:00 Uhr
+i mean
+[
+  br: {
+    wins: 266,
+    kills: 3916,
+  },
+  br_dmz: {
+    wins: 0,
+    kills: 0,
+ 
+  },
+  br_all: {
+    wins: 266,
+    kills: 3916,
+
+  }
+]
+coneillheute um 07:00 Uhr
+yea like I said dumb.
+SaintMorningheute um 07:01 Uhr
+so does it try to be like a named array?
+which does not exist in js?
+coneillheute um 07:01 Uhr
+it should just be an object
+SaintMorningheute um 07:01 Uhr
+yea right?
+humblecoderheute um 07:01 Uhr
+. . .if the contents were parseable
+coneillheute um 07:01 Uhr
+make a pr to them or raise an issue
+humblecoderheute um 07:01 Uhr
+But they're not
+[] is an object but [random:stuf=>run;cut:butter] is not  :lol:
+Stitchheute um 07:02 Uhr
+either turn the []  into {}  . or put {} inside []
+humblecoderheute um 07:02 Uhr
+^  . . . pretty sure there's an echo.  :wink:
+SaintMorningheute um 07:03 Uhr
+:smile: So, on my part I cannot fix it, right?
+coneillheute um 07:03 Uhr
+you want a really shitty way to fix it?
+SaintMorningheute um 07:03 Uhr
+except use it in the ugly way
+yea, sure
+Stitchheute um 07:03 Uhr
+u can..  grab it as a string,   replace it... then u can parse it out
+coneillheute um 07:03 Uhr
+JSON.stringify(result) and then replace the first and last characters with { and } and then parse it back to an opbject
+dammit lol
+Stitchheute um 07:03 Uhr
+yes
+coneillheute um 07:03 Uhr
+you beat me
+Stitchheute um 07:04 Uhr
+well. u went into detail. i didnt lol
+whomever made that api
+-_-"
+sad
+SaintMorningheute um 07:04 Uhr
+it kind of reflects the quality of the game :smile: (modern warfare)
+coneillheute um 07:04 Uhr
+either misunderstanding of arrays or thought they were doing something clever
+weebheute um 07:05 Uhr
+is to bloated to have ngrx
+humblecoderheute um 07:05 Uhr
+@SaintMorning out of curiosity, what are actually building?
+weebheute um 07:05 Uhr
+in angular
+SaintMorningheute um 07:06 Uhr
+first of all, thank you guys a lot for the help and entertaiment
+
+I am building a very simple bot command to display modern warfare stats for my discord bot that no-one uses anyway (doing that j4f) :smile:
+humblecoderheute um 07:06 Uhr
+:rofl: :thumbsup:
+Stitchheute um 07:06 Uhr
+use a diff api :smile:
+SaintMorningheute um 07:07 Uhr
+I don't think there is a different api for the call of duty servers :smile:
+Stitchheute um 07:07 Uhr
+prob not.  i was hoping there would be for ur sake
+SaintMorningheute um 07:07 Uhr
+haha :smile:
+Stitchheute um 07:07 Uhr
+i wold just hate to have made an app that feels kind of finicky because ur gunna hvae to alter the data like that
+coneillheute um 07:07 Uhr
+This persons API wrapper looks wierd tho.
+theres like cookie data embedded in the library
+SaintMorningheute um 07:08 Uhr
+yea, right? I did not understand that either, not sure if that was a requirement or so.. but I did not question it any further :smile:

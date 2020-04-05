@@ -29,7 +29,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: false,
-            description: 'Lookup a summoner\`s last tft games',
+            description: 'Lookup a summoner\`s last teamfight Tactics games',
             quotedStringSupport: true, 
             usage: '<summoner_name:string>',
             usageDelim: '',

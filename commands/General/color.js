@@ -26,7 +26,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: true,
-            description: '',
+            description: 'assign your display colors and see a list of available colors',
             quotedStringSupport: true, 
             usage: '<add|list|get:default> (roleName:RoleName) (color:color)',
             usageDelim: ' ',

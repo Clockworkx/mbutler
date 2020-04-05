@@ -1,5 +1,6 @@
 const { Points } = require('../../dbObjects')
 const Discord = require('discord.js');
+const { Op } = require('sequelize');
  /**
  * @param {import('klasa').KlasaMessage} message
  */
@@ -77,12 +78,23 @@ module.exports = class extends Command {
     }
 
     async myPoints(message, []) {
-        await Points.findOne({
+        const UserPoints = await Points.findOne({
             where: { DiscordUserId: message.author.id } })
-            .then(UserPoints => message.channel.send(`You have **${UserPoints.Points}** Points💰`))
+            
 
-    }
-
+        const personalRank = await Points.count({
+            where: {
+                Points: {
+                [Op.gt]: UserPoints.Points
+                }
+            }
+            });
+            const userCount = await Points.count({
+                });
+            message.channel.send(`You are ranked at place ${personalRank+1}/${userCount} with **${UserPoints.Points}** Points💰`);
+        }
+        
+    
 
     async init() {
         /*

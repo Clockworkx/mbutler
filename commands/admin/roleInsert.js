@@ -7,7 +7,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'RoleInsert',
-            enabled: true,
+            enabled: false,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,

@@ -24,7 +24,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: false,
-            description: '',
+            description: 'Displays emoji of all kinds for you',
             quotedStringSupport: true, 
             usage: '<emoji_type:string>',
             usageDelim: '',

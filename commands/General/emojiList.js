@@ -24,7 +24,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: false,
-            description: '',
+            description: 'lists a server\`s emoji',
             quotedStringSupport: true, 
             usage: '<normal|animated:default>',
             usageDelim: '',

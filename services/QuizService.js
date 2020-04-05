@@ -6,6 +6,7 @@ const fetch = require('node-fetch')
 const { isUnit, generate_pages, display_page, decodeHtml, shuffleArray } = require('../util/util')
 const emojiCharacters = require('../util/emojiCharacters');
 const { Points } = require('../dbObjects')
+
  
 module.exports = {
     quizService: async function (client) {
@@ -16,7 +17,7 @@ module.exports = {
         };
         let date = startQuestion()
         
-        schedule.scheduleJob('*/7 * * * *', async function() {
+        schedule.scheduleJob('*/1 * * * *', async function() {
             let question = await getQuestion()
             let questionText = decodeHtml(question.results[0].question)
             console.log('after func', question)
@@ -63,7 +64,7 @@ module.exports = {
                 }
             }
             
-            let channel = await client.guilds.cache.find(g => g.id === '401377808322002944').channels.cache.find(c => c.id === '694211415317282916')
+            let channel = await client.guilds.cache.find(g => g.id === '561278369728299016').channels.cache.find(c => c.id === '655444733572939777')
       
             quizMessage = await channel.send(questionEmbed)
             
@@ -100,9 +101,12 @@ module.exports = {
                 //channel.send(`winners size ${candidates.users.cache.size-1}`)
                 winners = verifyCandidates(candidates.users.cache, collectedAnswers)
                 console.log('final winners', winners)
-                winnerString = winners.map(w => w.username).join(', ')
-                channel.send(`${winnerString} have answered correctly and earned ${earnablePoints} points 💰`)
-                console.log(winnerString)
+                console.log('type', typeof(winners))
+                if (typeof winners === 'string') channel.send(winners);
+                else {
+                    winnerString = winners.map(w => w.username).join(', ')
+                    channel.send(`${winnerString} have answered correctly and earned ${earnablePoints} points 💰`)
+                }
                 // for (let i = 0; i < winners.length; i++) {
                 //     console.log(winners[i].username)
                 //     channel.send(winners[i].toString())

@@ -17,7 +17,7 @@ const client = new Client({
 
 client.once('ready', () => {  
   schedule_reminders(client);
-  quizService(client);
+ // quizService(client);
   client.user.setActivity(".help", {
     type: "LISTENING"
   })

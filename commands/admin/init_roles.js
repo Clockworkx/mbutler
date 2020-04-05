@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'init_roles',
-            enabled: true,
+            enabled: false,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,

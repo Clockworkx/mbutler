@@ -22,7 +22,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: false,
-            description: '',
+            description: 'Displays server information',
             quotedStringSupport: true, 
             usage: '',
             usageDelim: '',

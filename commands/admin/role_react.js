@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'role_react',
-            enabled: true,
+            enabled: false,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,

@@ -19,7 +19,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: false,
-            description: '',
+            description: 'Evaluates mathematical expressions',
             quotedStringSupport: true, 
             usage: '<expression:string>',
             usageDelim: '',

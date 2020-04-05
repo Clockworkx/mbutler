@@ -19,7 +19,7 @@ module.exports = class extends Command {
 			quotedStringSupport: true,
 			usage: '<list|delete|me:default> (reminder_id:id) (text:text) (time:time) (unit:unit) (page:page)',
 			usageDelim: ' ',
-			description: 'uwu',
+			description: 'reminds you',
 			extendedHelp: 'text',
 		});
 
