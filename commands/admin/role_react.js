@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'role_react',
-            enabled: false,
+            enabled: true,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,
@@ -29,14 +29,15 @@ module.exports = class extends Command {
           
     }
     async run(message, [first, second]) {
-        message.channel.messages.fetch('638265593090408449') //📰
-        .then(msg => msg.react('672637041535615016'))
-        .then(reaction =>  reaction.message.react('672637538229288970'))
-        .then(reaction =>  reaction.message.react('672636777537994760'))
-        .then(reaction =>  reaction.message.react('672639408226172958'))
-        .then(reaction =>  reaction.message.react('672650072697339914'))
-        .then(reaction =>  reaction.message.react('672641167778906122'))
-        .then(reaction =>  reaction.message.react('672650088027521025'))
+        message.channel.messages.fetch('697078905538085015') //📰
+        .then(msg => msg.react('697068625390993468'))
+        .then(reaction =>  reaction.message.react('697068610560065666'))
+        .then(reaction =>  reaction.message.react('697077474785362063'))
+        .then(reaction =>  reaction.message.react('697068550552027259'))
+        .then(reaction =>  reaction.message.react('697066777187844166'))
+        .then(reaction =>  reaction.message.react('697066856313389168'))
+        .then(reaction =>  reaction.message.react('697068636204040273'))
+        .then(reaction =>  reaction.message.react('697068714595582043'))
         
         
         // .then(msg => { message.channel.send(emoji.which(emoji.get(reaction.emoji.name)

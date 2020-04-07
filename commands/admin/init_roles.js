@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'init_roles',
-            enabled: false,
+            enabled: true,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,
@@ -29,18 +29,23 @@ module.exports = class extends Command {
           
     }
     async run(message, [first, second]) {
-		const rollen_embed = new Discord.MessageEmbed()
+		const rollenEmbed = new Discord.MessageEmbed()
 		.setColor('#0099ff')
 		.setTitle('Server Rollen')
-		.setDescription(`React with the correct emoji to get your server roles.\n`+
-		`<:LeagueOfLegends:638257644292931589> - League of Legends\n` +
-		`<:CSGO:638254615535681539> - Counter Strike:Global Offensive\n` +
-		 `<:RocketLeague:638254640722477056> - Rocket League\n` +
-		 `<:TheDivision2:638254650469908490> - The Division 2\n` +
-		 `<a:RainbowSixSiege:638254624695910410> - Rainbow Six Siege\n`+
-		 `<:ApexLegends:638263898880868353> - Apex Legends\n`
-		 );
-		 message.channel.send(rollen_embed);
+        .setDescription(`__**Reagiere mit dem entsprechenden Emoji um deine Rollen zu erhalten!**__\n\n`+
+        `__**Plattform**__\n`+
+		`<:PC:697068625390993468> - PC\n` +
+		`<:Playstation:697068610560065666> - Playstation\n` +
+        `<:xbox:697077474785362063> - XBOX\n` +
+        `__**Alter, falls du es angeben möchtest**__\n` +
+        `<:16:697068550552027259> - 16+\n` + 
+        `<:18:697066777187844166> - 18+\n` + 
+        `<:21:697066856313389168> - 21+\n` + 
+        `__**Möchtest du Bot oder Nachrichtenchannel sehen?**__\n` +
+		`<a:Botchannel:697068636204040273> - Botchannel\n` +
+		`<:Neuigkeiten:697068714595582043> - Neuigkeiten\n`
+		);
+		message.channel.send(rollenEmbed);
 
     }
 

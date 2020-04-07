@@ -22,7 +22,7 @@ module.exports = {
             try {
                 let msg = await reaction.message.fetch(); 
                 //console.log(msg.id);
-                if(msg.id === '626583570550358017' || msg.id === '638265593090408449')
+                if(msg.id === '626583570550358017' || msg.id === '638265593090408449' || msg.id === '697078905538085015' )
                 {
                     //console.log("Fetched and cached message")
                     apply_role();
@@ -35,7 +35,7 @@ module.exports = {
         else 
         {
             //console.log("Not a partial.");
-            if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449') {
+            if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449' || reaction.message.id === '697078905538085015') {
                 //console.log('Message in cache');
                 apply_role();
             }
@@ -63,7 +63,7 @@ module.exports = {
             try {
                 let msg = await reaction.message.fetch(); 
                 //console.log(msg.id);
-                if(msg.id === '626583570550358017' || msg.id === '638265593090408449')
+                if(msg.id === '626583570550358017' || msg.id === '638265593090408449' || msg.id === '697078905538085015')
                 {
                     //console.log("Fetched and cached message")
                     remove_role();
@@ -76,7 +76,7 @@ module.exports = {
         else 
         {
             //console.log("Not a partial.");
-            if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449') {
+            if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449' || reaction.message.id === '697078905538085015') {
                 //console.log('Message in cache');
                 remove_role();
             }
