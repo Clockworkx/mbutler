@@ -122,7 +122,7 @@ module.exports = class extends Command {
 
                     page.addField(`__**Unit ${j+1}**__`, `***${matches[i].units[j].character_id.slice(5)}***\n ${item_string}`, true)
 
-                    if (j === matches[i].units.length - 1 && matches[i].units.length % 3 !== 0) page.addBlankField(true)
+                    if (j === matches[i].units.length - 1 && matches[i].units.length % 3 !== 0) page.addField("\u200B", "\u200B")
                 }
             }
 
