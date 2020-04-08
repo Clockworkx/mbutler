@@ -39,7 +39,7 @@ module.exports = class extends Command {
         .setAuthor('Some name', this.client.user.avatarURL())
         .setThumbnail(this.client.user.avatarURL())
         .setDescription(`For help with the server contact ${message.guild.owner}`)
-        .addField('Usercount', message.guild.members.filter(members => !members.user.bot).size, true)
+        .addField('Usercount', message.guild.members.cache.filter(members => !members.user.bot).size, true)
         .addField('Created at', message.guild.createdAt, true)
         .addBlankField()
         .addField('Serverbot', this.client.user, true)

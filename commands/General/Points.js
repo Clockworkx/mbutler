@@ -24,7 +24,7 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: true,
-            description: 'turns text into ascii',
+            description: 'display User Points',
             quotedStringSupport: true, 
             usage: '<myPoints|list|give:default> [user:member] [points:int]',
             usageDelim: ' ',
