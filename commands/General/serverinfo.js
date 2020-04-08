@@ -41,7 +41,7 @@ module.exports = class extends Command {
         .setDescription(`For help with the server contact ${message.guild.owner}`)
         .addField('Usercount', message.guild.members.cache.filter(members => !members.user.bot).size, true)
         .addField('Created at', message.guild.createdAt, true)
-        .addBlankField()
+        .addField("\u200B", "\u200B")
         .addField('Serverbot', this.client.user, true)
         .addField(`Commands`, `Type .help in any chat to get a list of commands.`, true)
         .setColor('RANDOM')

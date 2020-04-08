@@ -94,7 +94,7 @@ module.exports = class extends Command {
 		.addField(`**» Definition «\n**`, `${res.definition}*`) // .replace(/\[|\]/g, '')
 		.setFooter(`👍 ${res.thumbsUp} 👎 ${res.thumbsDown} Author: ${res.author}`)
         .addField(`**» Example «**`, `*${res.example}*\n`) //? shorten(res.example.replace(/\[|\]/g, ''), 1000) : 'None'
-        .addBlankField()
+        .addField("\u200B", "\u200B")
 
         if (urban_embed) return message.channel.send(urban_embed);
     }
