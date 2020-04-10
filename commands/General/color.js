@@ -103,7 +103,7 @@ module.exports = class extends Command {
                 message.member.roles.add(colorRole)
                 .then(async member => { 
                     const currentColorRolesUser = await colorRolesUser.findOne({
-                        where: { DiscordUserId: message.author.id } })
+                        where: { DiscordUserId: message.author.id, guildID: message.guild.id } })
                     
                     console.log(currentColorRolesUser)
             
@@ -113,6 +113,7 @@ module.exports = class extends Command {
                         colorRolesUser.create({
                             DiscordUserId: message.author.id,
                             CurrentRole: colorRole.name,
+                            guildID: message.guild.id
                         }).then(ColorUser => {
                             console.log('ColorRolesUser created', ColorUser)
                         }).catch(error => console.log(error))
@@ -137,7 +138,7 @@ module.exports = class extends Command {
                         colorRolesUser.update({
                             CurrentRole: colorRole.name
                           }, {
-                              where: { DiscordUserId: message.author.id },
+                              where: { DiscordUserId: message.author.id, guildID: message.guild.id },
                               returning: true,
                             }).then(result => {
                                 console.log('color user updated:')
