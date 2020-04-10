@@ -1,10 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 const Discord = require('discord.js');
 const Canvas = require('canvas');
-const { colorRolesDb, colorRolesUser } = require('../../dbObjects')
- /**
- * @param {import('klasa').KlasaMessage} message
- */
+const { colorRolesDb, colorRolesUser, colorRolesServer } = require('../../dbObjects')
+/**
+* @param {import('klasa').KlasaMessage} message
+*/
 
 const { Command, RichDisplay } = require('klasa');
 
@@ -26,133 +26,143 @@ module.exports = class extends Command {
             requiredPermissions: [],
             requiredSettings: [],
             subcommands: true,
-            description: 'assign your display colors and see a list of available colors',
-            quotedStringSupport: true, 
-            usage: '<add|list|get:default> (roleName:RoleName) (color:color)',
+            description: 'assign your display color and see a list of available colors',
+            quotedStringSupport: true,
+            usage: '<add|list|get:default> (roleName:RoleName) (color:color) [member:member]',
             usageDelim: ' ',
             extendedHelp: 'No extended help available.'
         });
 
         this.createCustomResolver('color', (arg, possible, msg, [arg1]) => {
-            if (arg1 !== 'add') return undefined 
-            if (arg1 === 'add' && arg) return arg 
+            if (arg1 !== 'add') return undefined
+            if (arg1 === 'add' && arg) return arg
             else throw 'missing color';
         })
 
         this.createCustomResolver('rolename', (arg, possible, msg, [arg1]) => {
-            if (arg1 === 'list') return undefined 
+            if (arg1 === 'list') return undefined
             if (['get', 'add'].includes(arg1)) console.log('yes')
-            if (['get', 'add'].includes(arg1) && arg){
+            if (['get', 'add'].includes(arg1) && arg) {
                 console.log('yes2', arg)
-                return arg 
-            
-                
-            } 
+                return arg
+
+
+            }
             else throw 'missing role name';
-		})     
+        })
     }
 
     async add(message, [roleName, color]) {
         message.guild.roles.create({
             data: {
-              name: '#' + roleName,
-              color: color,
-              position: message.guild.roles.highest.position -2,
+                name: roleName,
+                color: color,
+                position: 1,
             },
             reason: 'Color Group',
-          })
-            .then(role => {
-                let embed = new MessageEmbed()
+        }).then(role => {
+            colorRolesServer.create({
+                roleId: role.id,
+                roleName: role.name,
+                roleHexColor: role.hexColor,
+            }).then(color => {
+                console.log('color object', color)
+            }).catch(error => console.log(error))
+            let embed = new MessageEmbed()
                 .setColor(color)
                 .setDescription(`Group ${role.color} added`)
-                message.channel.send(embed)
-            })
-            .catch(console.error);
+            message.channel.send(embed)
+        }).catch(console.error);
     }
 
     async list(message, [emoji_input]) {
-        const colorRoles = await colorRolesDb.findAll();	
+        const colorRoles = await colorRolesDb.findAll();
         const canvas = Canvas.createCanvas(950, 700);
         const ctx = canvas.getContext('2d');
 
-        Canvas.registerFont('assets/fonts/Lato-Regular.ttf', { family: 'Lato-Regular'}) 
+        Canvas.registerFont('assets/fonts/Lato-Regular.ttf', { family: 'Lato-Regular' })
         ctx.font = 'bold 32px "Lato-Regular"';
 
         let xOffset = 0;
-        let yOffset = 30;    
+        let yOffset = 30;
         for (let i = 0; i < colorRoles.length; i++) {
-            if (i % 17 === 0 && i !== 0){
+            if (i % 17 === 0 && i !== 0) {
                 console.log('truze')
                 xOffset += 300
                 yOffset = 30
-            } 
+            }
             ctx.fillStyle = colorRoles[i].roleHexColor;
-            ctx.fillText(colorRoles[i].roleName, xOffset, yOffset,); //
-            yOffset += 610/17;
-            
+            ctx.fillText(colorRoles[i].roleName, xOffset, yOffset); //
+            yOffset += 610 / 17;
+
         }
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'colorlist.png');
-        message.channel.send(attachment);     
+        message.channel.send(attachment);
     }
 
-    async get(message, [colorRoleName]) {   
+    async get(message, [colorRoleName, color, member]) {
+        let target;
+        if (member === message.author) target = message.author;
+        else target = message.member;
+        console.log('target', message.member)
+        console.log('target id', message.member.id)
+
         message.guild.roles.fetch()
-        .then(async roles => {
-            let colorRole = roles.cache.find(roles => roles.name.toLowerCase() === colorRoleName.toLowerCase())
-            if (colorRole){
-                message.member.roles.add(colorRole)
-                .then(async member => { 
-                    const currentColorRolesUser = await colorRolesUser.findOne({
-                        where: { DiscordUserId: message.author.id, guildID: message.guild.id } })
-                    
-                    console.log(currentColorRolesUser)
-            
-                    if (currentColorRolesUser === null) {
-                        console.log('new color user')
-                        
-                        colorRolesUser.create({
-                            DiscordUserId: message.author.id,
-                            CurrentRole: colorRole.name,
-                            guildID: message.guild.id
-                        }).then(ColorUser => {
-                            console.log('ColorRolesUser created', ColorUser)
-                        }).catch(error => console.log(error))
-            
-                    }
-                    else {
-                        console.log('color user existent')
+            .then(async roles => {
+                let colorRole = roles.cache.find(roles => roles.name.toLowerCase() === colorRoleName.toLowerCase())
+                if (colorRole) {
+                    target.roles.add(colorRole)
+                        .then(async member => {
+                            const currentColorRolesUser = await colorRolesUser.findOne({
+                                where: { DiscordUserId: target.id, guildID: message.guild.id }
+                            })
 
-                        const previousColorRoleName = currentColorRolesUser.CurrentRole
-                        console.log('prev role name', previousColorRoleName)
-                        const previousColorRole = message.guild.roles.cache.find(roles => roles.name === previousColorRoleName)
-                        console.log('prev color role', previousColorRole)
+                            if (currentColorRolesUser === null) {
+                                console.log('new color user')
 
-                        if (previousColorRole === colorRole) {
+                                await colorRolesUser.create({
+                                    DiscordUserId: target.id,
+                                    CurrentRole: colorRole.name,
+                                    guildID: message.guild.id
+                                }).then(ColorUser => {
+                                    console.log('ColorRolesUser created', ColorUser)
+                                }).catch(error => console.log(error))
 
-                            console.log('same color role')
-                            return;
-                        } 
-                        
-                        message.member.roles.remove(previousColorRole)
-                        
-                        colorRolesUser.update({
-                            CurrentRole: colorRole.name
-                          }, {
-                              where: { DiscordUserId: message.author.id, guildID: message.guild.id },
-                              returning: true,
-                            }).then(result => {
-                                console.log('color user updated:')
-                                //console.log('Current Role updated:', result[1][0]['CurrentRole'])
-                            }).catch(error => console.log(error));
-                    }
-                    })
-                let sucessEmbed = new MessageEmbed()
-                .setColor(colorRole.hexColor)
-                .setDescription(`${message.author} your namecolor is now ${colorRole.name}`)
-                message.send(sucessEmbed)
-            } 
-            else message.send('Not a color')
-        })
+                            }
+                            else {
+                                console.log('color user existent')
+
+                                const previousColorRoleName = currentColorRolesUser.CurrentRole
+                                console.log('prev role name', previousColorRoleName)
+                                const previousColorRole = message.guild.roles.cache.find(roles => roles.name === previousColorRoleName)
+                                console.log('prev color role', previousColorRole.name)
+
+                                if (previousColorRole === colorRole) {
+
+                                    console.log('same color role')
+                                    return;
+                                }
+
+                                target.roles.remove(previousColorRole)
+
+                                colorRolesUser.update({
+                                    CurrentRole: colorRole.name
+                                }, {
+                                    where: { DiscordUserId: target.id, guildID: message.guild.id },
+                                    returning: true,
+                                }).then(result => {
+                                    console.log('color user updated:')
+                                    //console.log('Current Role updated:', result[1][0]['CurrentRole'])
+                                }).catch(error => console.log(error));
+                            }
+                        })
+                    let sucessEmbed = new MessageEmbed()
+                        .setColor(colorRole.hexColor)
+                        .setDescription(`${target} your namecolor is now ${colorRole.name}`)
+                    message.send(sucessEmbed)
+                }
+                else message.send('Not a color')
+            })
     }
 
     async init() {

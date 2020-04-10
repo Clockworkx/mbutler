@@ -10,6 +10,7 @@ const Reminders = sequelize.import('models/Reminders');
 sequelize.import('models/colorRoles');
 sequelize.import('models/colorRolesUser');
 sequelize.import('models/Points');
+sequelize.import('models/colorRolesServer');
 
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 

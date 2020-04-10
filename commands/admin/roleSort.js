@@ -8,7 +8,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'roleSort',
-            enabled: false,
+            enabled: true,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,
@@ -34,7 +34,8 @@ module.exports = class extends Command {
     async run(message, [expression]) {
         const cRoles = await colorRolesDb.findAll();
         
-        let lastPosition = message.guild.roles.highest.rawPosition // - 4
+        let lastPosition = message.guild.roles.highest.rawPosition  - 3
+        console.log(lastPosition)
         for (let i = 0; i < cRoles.length; i++) {
             console.log('pos to set to', lastPosition)
             console.log('role name', cRoles[i].roleName)
