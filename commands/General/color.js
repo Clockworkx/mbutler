@@ -103,7 +103,7 @@ module.exports = class extends Command {
     async get(message, [colorRoleName, color, member]) {
         let target;
         if (member === message.author) target = message.author;
-        else target = message.member;
+        else target = member;
         console.log('target', message.member)
         console.log('target id', message.member.id)
 
