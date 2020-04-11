@@ -70,7 +70,7 @@ module.exports = class extends Command {
             }).catch(error => console.log(error))
             let embed = new MessageEmbed()
                 .setColor(color)
-                .setDescription(`Group ${role.color} added`)
+                .setDescription(`Group ${role.name} added`)
             message.channel.send(embed)
         }).catch(console.error);
     }
