@@ -102,10 +102,17 @@ module.exports = class extends Command {
 
     async get(message, [colorRoleName, color, member]) {
         let target;
-        if (member === message.author) target = message.author;
-        else target = member;
-        console.log('target', message.member)
-        console.log('target id', message.member.id)
+        if (member === message.member) {
+            console.log('equals author')
+            target = message.member
+        }
+        else {
+            console.log('not equal')
+            target = member
+        };
+        console.log('target', target)
+        console.log(message.author)
+       // console.log('target id', message.member.id)
 
         message.guild.roles.fetch()
             .then(async roles => {
