@@ -101,15 +101,9 @@ module.exports = class extends Command {
     }
 
     async get(message, [colorRoleName, color, member]) {
-        let target;
-        if (member === message.member) {
-            console.log('equals author')
-            target = message.member
-        }
-        else {
-            console.log('not equal')
-            target = member
-        };
+        let target = message.member;
+        if (member !== undefined && member !== message.member) target = member
+        
         console.log('target', target)
         console.log(message.author)
        // console.log('target id', message.member.id)
