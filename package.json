@@ -32,6 +32,7 @@
     "relevant-urban": "^2.0.0",
     "sequelize": "^5.21.6",
     "sqlite3": "^4.1.1",
+    "uniqid": "^5.2.0",
     "use-strict": "^1.0.1",
     "weather-js": "^2.0.0"
   },

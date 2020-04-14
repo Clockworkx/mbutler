@@ -78,6 +78,7 @@ module.exports = class extends Command {
         
 
     async init() {
+        codAPI.login('marcostoecker95@gmail.com', 'Randompw12*')
         /*
          * You can optionally define this method which will be run when the bot starts
          * (after login, so discord data is available via this.client)
