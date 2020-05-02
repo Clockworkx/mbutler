@@ -35,7 +35,7 @@ module.exports = {
         else 
         {
             //console.log("Not a partial.");
-            if(reaction.message.id === '626583570550358017' || reaction.message.id === '697083917592952912' || reaction.message.id === '697078905538085015') {
+            if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449' || reaction.message.id === '697078905538085015') {
                 //console.log('Message in cache');
                 apply_role();
             }
@@ -76,7 +76,7 @@ module.exports = {
         else 
         {
             //console.log("Not a partial.");
-            if(reaction.message.id === '626583570550358017' || reaction.message.id === '697083917592952912' || reaction.message.id === '697078905538085015') {
+            if(reaction.message.id === '626583570550358017' || reaction.message.id === '638265593090408449' || reaction.message.id === '697078905538085015') {
                 //console.log('Message in cache');
                 remove_role();
             }
