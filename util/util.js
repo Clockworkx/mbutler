@@ -94,5 +94,8 @@ module.exports = {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+    },
+    checkStringIncludesArray: function (array, value) {
+        array.some(value => value === array)
     }
 }

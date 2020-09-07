@@ -5,6 +5,8 @@ const colors = require('colors')
 const { schedule_reminders } = require('./commands/General/reminder')
 const { Client } = require('klasa');
 const { quizService } = require('./services/QuizService')
+const BDOService  = require('./services/BDOService')
+
 
 const client = new Client({
   fetchAllMembers: false,
@@ -17,6 +19,7 @@ const client = new Client({
 
 client.once('ready', () => {  
   schedule_reminders(client);
+  //BDOService.BDOLogChecker(client)
  // quizService(client);
   client.user.setActivity(".help", {
     type: "LISTENING"
