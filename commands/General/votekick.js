@@ -1,16 +1,17 @@
 const { Command } = require('klasa');
+const { piDependencies } = require('mathjs');
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            name: 'emojilist',
+            name: 'votekick',
             enabled: true,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,
             bucket: 1,
-            aliases: ['si'],
+            aliases: ['vk'],
             guarded: false,
             nsfw: false,
             permissionLevel: 0,
@@ -19,7 +20,7 @@ module.exports = class extends Command {
             subcommands: false,
             description: '',
             quotedStringSupport: true, 
-            usage: '',
+            usage: '<user:user>',
             usageDelim: '',
             extendedHelp: 'No extended help available.'
         });
@@ -27,8 +28,31 @@ module.exports = class extends Command {
          
           
     }
-    async run(message, [first, second]) {
+    async run(message, [user]) {
+        const filter = (reaction, user) => {
+            return ['👍', '👎'].includes(reaction.emoji.name);
+        }
+        let up = 0;
+        let down = 0;
 
+        let voteMessage = await message.channel.send(`${message.author} started a votekick against ${user.toString()}`)
+        //console.log(voteMessage)
+        voteMessage.awaitReactions(filter, { time: 5000, max: 99})
+        .then(collected => {
+           // console.log(collected.get('👍').count > collected.get('👎').count)
+           up = collected.get('👍')
+           if (up) up = up.count ;
+           down = collected.get('👎').count
+           if (down) down = down.count ;
+
+            if (up > down) message.channel.send(`${user.toString()} was kicked, fuckin asshole.`)
+            else message.channel.send(`${user.toString()} you had luck.`)
+        })
+        .catch(collected => {
+            console.log('error during collecting');
+            console.log(up, down)
+            message.channel.send('catch')
+        })
 
     }
 

@@ -16,7 +16,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: 'quiz',
-            enabled: false,
+            enabled: true,
             runIn: ['text', 'dm', 'group'],
             cooldown: 0,
             deletable: false,
