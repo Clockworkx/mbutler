@@ -37,7 +37,7 @@ module.exports = class extends Command {
 
         let voteMessage = await message.channel.send(`${message.author} started a votekick against ${user.toString()}`)
         //console.log(voteMessage)
-        voteMessage.awaitReactions(filter, { time: 5000, max: 99})
+        voteMessage.awaitReactions(filter, { time: 15000, max: 99})
         .then(collected => {
            // console.log(collected.get('👍').count > collected.get('👎').count)
            up = collected.get('👍')
