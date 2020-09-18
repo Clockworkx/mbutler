@@ -49,9 +49,7 @@ module.exports = class extends Command {
             else message.channel.send(`${user.toString()} you had luck.`)
         })
         .catch(collected => {
-            console.log('error during collecting');
-            console.log(up, down)
-            message.channel.send('catch')
+            message.channel.send('No one voted, fucking :pepegas:')
         })
 
     }
