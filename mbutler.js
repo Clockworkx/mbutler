@@ -5,7 +5,8 @@ const colors = require('colors')
 const { schedule_reminders } = require('./commands/General/reminder')
 const { Client } = require('klasa');
 const { quizService } = require('./services/QuizService')
-const BDOService  = require('./services/BDOService')
+const { ChannelStatusUpdate } = require('./services/ChannelStatusService')
+const { Channel } = require('discord.js');
 
 
 const client = new Client({
@@ -19,7 +20,6 @@ const client = new Client({
 
 client.once('ready', () => {  
   schedule_reminders(client);
-  //BDOService.BDOLogChecker(client)
  // quizService(client);
   client.user.setActivity(".help", {
     type: "LISTENING"
@@ -51,6 +51,9 @@ client
   })
   .on('messageReactionRemove', async (reaction, user) => {
     roleService.remove_group(reaction, user)
+  })
+  .on('voiceStateUpdate', (oldState, newState) => {
+    ChannelStatusUpdate(oldState, newState)
   })
 
 client.login(config.token);
